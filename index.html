@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html lang="en" class="h-full">
 
 <head>
 
@@ -10,52 +10,44 @@
 
     <script src="https://unpkg.com/vue@3"></script>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
 
-        html, body {
-            height: 100%;
+        @keyframes spinner {
+            to {transform: rotate(360deg);}
         }
 
-        body {
-            display: grid;
-            place-items: center;
+        .is-loading:before {
+            content: '';
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            margin-left: -10px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            border-top-color: #000;
+            animation: spinner .6s linear infinite;
         }
 
-        .text-green {
-            color: green;
-        }
-
-        .text-red {
-            color: red;
+        .is-loading{
+            color: transparent !important;
         }
     </style>
 </head>
-<body>
+<body class="h-full grid place-items-center bg-gray-800 text-white">
 
-    <div id="app">
+    <div id="app"></div>
 
-        <button type="button" :class="active ? 'text-red' : 'text-green'" @click="toggle">Click me</button>
-    </div>
+    <script type="module">
 
-    <script>
+        import App from "./js/components/App.js";
 
-        Vue.createApp({
-
-            data() {
-                return {
-
-                    active: false
-                }
-            },
-
-            methods:{
-
-                toggle() {
-
-                    this.active = !this.active;
-                }
-            }
-        }).mount("#app");
+        Vue.createApp(App).mount("#app");
     </script>
 </body>
 </html>
